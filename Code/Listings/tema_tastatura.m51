@@ -1,0 +1,209 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    04/29/2018  15:54:17  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\main.obj TO .\Objects\tema_tastatura PRINT (.\Listings\tema_tastatura.m51)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\main.obj (MAIN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  .\Objects\tema_tastatura (MAIN)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000BH     UNIT         ?DT?MAIN
+            DATA    0013H     0001H     UNIT         _DATA_GROUP_
+            IDATA   0014H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     008CH     UNIT         ?C_C51STARTUP
+            CODE    088CH     0050H     UNIT         ?PR?_GETKEYNO?MAIN
+            CODE    08DCH     004CH     UNIT         ?PR?_KEYTO7SEG?MAIN
+            CODE    0928H     001FH     UNIT         ?PR?MAIN?MAIN
+            CODE    0947H     0010H     UNIT         ?PR?DELAY?MAIN
+            CODE    0957H     000DH     UNIT         ?PR?GETKEY?MAIN
+            CODE    0964H     000DH     UNIT         ?C_INITSEG
+            CODE    0971H     0009H     UNIT         ?PR?KEYDOWN?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\tema_tastatura (MAIN)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN                  -----    -----
+  +--> ?PR?GETKEY?MAIN
+  +--> ?PR?DELAY?MAIN
+  +--> ?PR?_GETKEYNO?MAIN
+  +--> ?PR?_KEYTO7SEG?MAIN
+
+?PR?GETKEY?MAIN                -----    -----
+  +--> ?PR?KEYDOWN?MAIN
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/29/2018  15:54:17  PAGE 2
+
+
+?PR?_GETKEYNO?MAIN             0013H    0001H
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\tema_tastatura (MAIN)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  C:0971H         PUBLIC        keydown
+  D:0008H         PUBLIC        disp_7seg
+  C:0957H         PUBLIC        getkey
+  C:0947H         PUBLIC        delay
+  C:0928H         PUBLIC        main
+  D:0012H         PUBLIC        key_buffer
+  C:088CH         PUBLIC        _getKeyNo
+  D:0089H         PUBLIC        TMOD
+  B:0088H.5       PUBLIC        TF0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  C:08DCH         PUBLIC        _keyTo7Seg
+  -------         PROC          DELAY
+  C:0947H         LINE#         22
+  C:0947H         LINE#         23
+  C:0947H         LINE#         24
+  C:094AH         LINE#         25
+  C:094DH         LINE#         26
+  C:094FH         LINE#         27
+  C:0952H         LINE#         28
+  C:0954H         LINE#         29
+  C:0956H         LINE#         30
+  -------         ENDPROC       DELAY
+  -------         PROC          _GETKEYNO
+  D:0007H         SYMBOL        port0
+  D:0013H         SYMBOL        port1
+  C:088CH         LINE#         32
+  C:088EH         LINE#         33
+  C:088EH         LINE#         34
+  C:08AEH         LINE#         35
+  C:08AEH         LINE#         36
+  C:08AEH         LINE#         37
+  C:08B1H         LINE#         38
+  C:08B1H         LINE#         39
+  C:08B4H         LINE#         40
+  C:08B4H         LINE#         41
+  C:08B7H         LINE#         42
+  C:08B7H         LINE#         43
+  C:08BAH         LINE#         44
+  C:08BAH         LINE#         45
+  C:08BDH         LINE#         46
+  C:08BDH         LINE#         47
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/29/2018  15:54:17  PAGE 3
+
+
+  C:08C0H         LINE#         48
+  C:08C0H         LINE#         49
+  C:08C3H         LINE#         50
+  C:08C3H         LINE#         51
+  C:08C6H         LINE#         52
+  C:08C6H         LINE#         53
+  C:08C9H         LINE#         54
+  C:08D3H         LINE#         55
+  C:08D3H         LINE#         56
+  C:08D3H         LINE#         57
+  C:08D6H         LINE#         58
+  C:08D6H         LINE#         59
+  C:08D9H         LINE#         60
+  C:08D9H         LINE#         61
+  C:08DBH         LINE#         62
+  -------         ENDPROC       _GETKEYNO
+  -------         PROC          KEYDOWN
+  C:0971H         LINE#         64
+  C:0971H         LINE#         65
+  C:0971H         LINE#         66
+  C:0979H         LINE#         67
+  -------         ENDPROC       KEYDOWN
+  -------         PROC          GETKEY
+  C:0957H         LINE#         69
+  C:0957H         LINE#         70
+  C:0957H         LINE#         72
+  C:095AH         LINE#         73
+  C:095DH         LINE#         74
+  C:0963H         LINE#         75
+  -------         ENDPROC       GETKEY
+  -------         PROC          _KEYTO7SEG
+  D:0007H         SYMBOL        key
+  C:08DCH         LINE#         79
+  C:08DCH         LINE#         80
+  C:08DCH         LINE#         81
+  C:0907H         LINE#         82
+  C:0907H         LINE#         83
+  C:0907H         LINE#         84
+  C:090AH         LINE#         85
+  C:090AH         LINE#         86
+  C:090DH         LINE#         87
+  C:090DH         LINE#         88
+  C:0910H         LINE#         89
+  C:0910H         LINE#         90
+  C:0913H         LINE#         91
+  C:0913H         LINE#         92
+  C:0916H         LINE#         93
+  C:0916H         LINE#         94
+  C:0919H         LINE#         95
+  C:0919H         LINE#         96
+  C:091CH         LINE#         97
+  C:091CH         LINE#         98
+  C:091FH         LINE#         99
+  C:091FH         LINE#         100
+  C:0922H         LINE#         101
+  C:0922H         LINE#         102
+  C:0925H         LINE#         103
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  04/29/2018  15:54:17  PAGE 4
+
+
+  C:0925H         LINE#         104
+  C:0927H         LINE#         105
+  -------         ENDPROC       _KEYTO7SEG
+  -------         PROC          MAIN
+  C:0928H         LINE#         109
+  C:0928H         LINE#         110
+  C:0928H         LINE#         112
+  C:092BH         LINE#         113
+  C:092EH         LINE#         115
+  C:092EH         LINE#         116
+  C:092EH         LINE#         117
+  C:0931H         LINE#         118
+  C:0934H         LINE#         119
+  C:0937H         LINE#         120
+  C:0940H         LINE#         121
+  C:0945H         LINE#         122
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00EDH BYTE (11%) *
+******************************************************************************
+
+Program Size: data=21.0 xdata=0 code=381
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

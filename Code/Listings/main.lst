@@ -1,0 +1,151 @@
+C51 COMPILER V9.57.0.0   MAIN                                                              04/29/2018 15:54:17 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          
+   3          //7 segment display port segment A -> LSB, decimal point -> MSB
+   4          #define DISPLAY_PORT P2
+   5          //use entire port for keys 0->7
+   6          #define KEY_PORT0 P1
+   7          //2 pins of second port for keys 8->9
+   8          #define KEY_PORT1 P3
+   9          //select pins of second port
+  10          #define PORT1_0 2
+  11          #define PORT1_1 3
+  12          //second port masks
+  13          #define KEY_PORT1_MASK (~((1<<PORT1_0)|(1<<PORT1_1)))
+  14          #define KEY_PORT1_0 (~(1<<PORT1_0)) //value of port when corresponding button pulls pin down
+  15          #define KEY_PORT1_1 (~(1<<PORT1_1))
+  16          //timer0 initial values
+  17          #define INITIAL_TL0 0xCC
+  18          #define INITIAL_TH0 0xD4
+  19          
+  20          const char disp_7seg[] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f};
+  21          
+  22          void delay()
+  23          {
+  24   1        TL0 = (INITIAL_TL0);
+  25   1        TH0 = (INITIAL_TH0);
+  26   1        TR0 = 1;
+  27   1        while(!TF0);
+  28   1        TR0 = 0;
+  29   1        TF0 = 0;
+  30   1      }
+  31          
+  32          char getKeyNo(char port0, char port1)
+  33          {
+  34   1        switch(port0)
+  35   1        {
+  36   2          case 0xfe:
+  37   2            return 0;
+  38   2          case 0xfd:
+  39   2            return 1;
+  40   2          case 0xfb:
+  41   2            return 2;
+  42   2          case 0xf7:
+  43   2            return 3;
+  44   2          case 0xef:
+  45   2            return 4;
+  46   2          case 0xdf:
+  47   2            return 5;
+  48   2          case 0xbf:
+  49   2            return 6;
+  50   2          case 0x7f:
+  51   2            return 7;
+  52   2        }
+  53   1        port1 |= (KEY_PORT1_MASK);
+  54   1        switch(port1)
+C51 COMPILER V9.57.0.0   MAIN                                                              04/29/2018 15:54:17 PAGE 2   
+
+  55   1        {
+  56   2          case 0xfb:
+  57   2            return 8;
+  58   2          case 0xf7:
+  59   2            return 9;
+  60   2        }
+  61   1        return 0xff;
+  62   1      }
+  63          
+  64          char keydown()
+  65          {
+  66   1        return ~(((KEY_PORT1) | (KEY_PORT1_MASK)) & KEY_PORT0);
+  67   1      }
+  68          
+  69          void getkey()
+  70          {
+  71   1        //set keyboard ports as input
+  72   1        KEY_PORT0 = 0xff;
+  73   1        KEY_PORT1 = 0xff;
+  74   1        while(!keydown());
+  75   1      }
+  76          
+  77          //convert key number to 7 segment display (DP G F E D C B A)
+  78          //return values are complemented for common anode display
+  79          char keyTo7Seg(char key)
+  80          {
+  81   1        switch(key)
+  82   1        {
+  83   2          case 0:
+  84   2            return ~0x3f;
+  85   2          case 1:
+  86   2            return ~0x06;
+  87   2          case 2:
+  88   2            return ~0x5b;
+  89   2          case 3:
+  90   2            return ~0x4f;
+  91   2          case 4: 
+  92   2            return ~0x66;
+  93   2          case 5:
+  94   2            return ~0x6d;
+  95   2          case 6:
+  96   2            return ~0x7d;
+  97   2          case 7:
+  98   2            return ~0x07;
+  99   2          case 8:
+ 100   2            return ~0x7f;
+ 101   2          case 9:
+ 102   2            return ~0x6f;
+ 103   2        }
+ 104   1        return 0xff;
+ 105   1      }
+ 106          
+ 107          char key_buffer;
+ 108          
+ 109          int main()
+ 110          {
+ 111   1        //initialize timers
+ 112   1        TMOD |= 0x11;
+ 113   1        TMOD &= 0xFD;
+ 114   1        
+ 115   1        while(1)
+ 116   1        {
+C51 COMPILER V9.57.0.0   MAIN                                                              04/29/2018 15:54:17 PAGE 3   
+
+ 117   2          getkey();
+ 118   2          delay();
+ 119   2          getkey();
+ 120   2          key_buffer = getKeyNo(KEY_PORT0, KEY_PORT1);
+ 121   2          P2 = keyTo7Seg(key_buffer);
+ 122   2        }
+ 123   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    225    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     11       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
